@@ -2,7 +2,7 @@ import FitnessPredictionForm from "@/components/fitness-prediction-form";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-gray-950  text-white">
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-3xl md:text-5xl font-bold text-center mb-8">
           AI Fitness Prediction
