@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -42,6 +42,12 @@ const formSchema = z.object({
   months: z.string().min(1, "Months are required"),
 });
 
+const calculateBMI = (height: number, weight: number) => {
+  if (!height || !weight) return "";
+  let heightInMeters = height / 100;
+  return (weight / (heightInMeters * heightInMeters)).toFixed(2);
+};
+
 export default function FitnessPredictionForm() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any>(null);
@@ -62,6 +68,19 @@ export default function FitnessPredictionForm() {
       months: "",
     },
   });
+
+  useEffect(() => {
+    // to Calculate BMI dynamically
+    const height = parseFloat(form.getValues("height"));
+    const weight = parseFloat(form.getValues("weight"));
+
+    if (!isNaN(height) && !isNaN(weight)) {
+      form.setValue("bmi", calculateBMI(height, weight), {
+        shouldValidate: true,
+      });
+    }
+  }, [form.watch("height"), form.watch("weight")]);
+
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
@@ -173,10 +192,9 @@ export default function FitnessPredictionForm() {
                     <FormLabel>BMI</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="22.5"
-                        type="number"
-                        step="0.1"
-                        className="bg-zinc-800 border-zinc-700"
+                        readOnly // UPDATED: BMI field is now readonly
+                        placeholder="Auto-calculated"
+                        className="bg-zinc-800 border-zinc-700 cursor-not-allowed"
                         {...field}
                       />
                     </FormControl>
