@@ -2,7 +2,8 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = "AIzaSyCcms23ghND0vzdXaFsIJJTE_YDDcsw9Vc";
+//todo: updated api key and put this in environment
+const API_KEY = "AIzaSyDxjxuUY5cwT70aleFXuR3pdc7JtxZY9Do";
 
 export async function getPrediction(userData: {
   weight: string;
@@ -59,7 +60,6 @@ export async function getPrediction(userData: {
     const response = await result.response;
     const text = response.text();
 
-    // Extract the JSON from the response
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error("Failed to parse JSON from Gemini response");
