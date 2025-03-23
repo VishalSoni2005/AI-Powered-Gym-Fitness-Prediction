@@ -11,6 +11,7 @@ interface ResultsDisplayProps {
   results: {
     expectedWeight: number;
     musclesGain: number;
+    months: number;
     fatloss: number;
     strenghtIncrease: number;
     chest: number;
@@ -26,7 +27,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
     <div className="space-y-6 ">
       <Card className="p-6 text-white bg-zinc-900 border-zinc-800">
         <h2 className="text-2xl font-bold mb-6 text-center">
-          Your 3-Month Prediction
+          Your {results.months } Month Prediction
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

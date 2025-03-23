@@ -15,6 +15,7 @@ export async function getPrediction(userData: {
   biceps: string;
   workoutType: string;
   goals: string;
+  months: string;
 }) {
   try {
     // Gemini API
@@ -23,7 +24,7 @@ export async function getPrediction(userData: {
 
     // prompt 
     const prompt = `
-      Based on the following user data, predict fitness results after 3 months of regular workouts:
+      Based on the following user data, predict fitness results after ${userData.months} months of regular workouts:
       
       Current measurements:
       - Weight: ${userData.weight} kg
@@ -46,11 +47,12 @@ export async function getPrediction(userData: {
         "chest": number,
         "biceps": number,
         "waist": number,
+        "months": number,
         "bmi": number,
         "recommendations": [string, string, string, string, string]
       }
       
-      Provide realistic values based on fitness science and typical results for someone with these measurements following a regular workout routine for 3 months.
+      Provide realistic values based on fitness science and typical results for someone with these measurements following a regular workout routine for ${userData.months} months.
     `;
 
     const result = await model.generateContent(prompt);

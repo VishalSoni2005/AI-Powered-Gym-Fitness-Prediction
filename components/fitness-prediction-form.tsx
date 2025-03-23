@@ -39,6 +39,7 @@ const formSchema = z.object({
   biceps: z.string().min(1, "Biceps measurement is required"),
   workoutType: z.string().min(1, "Workout type is required"),
   goals: z.string().min(1, "Goals are required"),
+  months: z.string().min(1, "Months are required"),
 });
 
 export default function FitnessPredictionForm() {
@@ -58,6 +59,7 @@ export default function FitnessPredictionForm() {
       biceps: "",
       workoutType: "",
       goals: "",
+      months: "",
     },
   });
 
@@ -239,6 +241,25 @@ export default function FitnessPredictionForm() {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="months"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Months</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="3"
+                        type="number"
+                        step="1"
+                        className="bg-zinc-800 border-zinc-700"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             <FormField
@@ -317,7 +338,7 @@ export default function FitnessPredictionForm() {
               </h3>
               <p className="text-gray-400">
                 Fill out the form and submit to see your AI-predicted fitness
-                results after 3 months.
+                results after selected months.
               </p>
             </div>
           </div>
