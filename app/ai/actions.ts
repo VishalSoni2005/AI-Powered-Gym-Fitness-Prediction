@@ -2,7 +2,6 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// This would be set in your environment variables
 const API_KEY = "AIzaSyCcms23ghND0vzdXaFsIJJTE_YDDcsw9Vc";
 
 export async function getPrediction(userData: {
@@ -18,11 +17,11 @@ export async function getPrediction(userData: {
   goals: string;
 }) {
   try {
-    // Initialize the Gemini API
+    // Gemini API
     const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-    // Create the prompt for Gemini
+    // prompt 
     const prompt = `
       Based on the following user data, predict fitness results after 3 months of regular workouts:
       
@@ -54,7 +53,6 @@ export async function getPrediction(userData: {
       Provide realistic values based on fitness science and typical results for someone with these measurements following a regular workout routine for 3 months.
     `;
 
-    // Generate content
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
@@ -70,7 +68,6 @@ export async function getPrediction(userData: {
   } catch (error) {
     console.error("Error calling Gemini API:", error);
 
-    // Return mock data for testing or when API fails
     return {
       expectedWeight: Number.parseFloat(userData.weight) - 3,
       musclesGain: 2.5,
