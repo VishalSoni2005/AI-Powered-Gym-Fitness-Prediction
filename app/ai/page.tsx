@@ -1,4 +1,8 @@
 import FitnessPredictionForm from "@/components/fitness-prediction-form";
+export const metadata = {
+  title: "XXX Gym",
+  description: "Page description",
+};
 
 export default function Home() {
   return (

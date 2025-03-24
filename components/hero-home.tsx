@@ -13,15 +13,16 @@ export default function HeroHome() {
             <h1
               className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-5 font-nacelle text-4xl font-semibold text-transparent md:text-5xl"
               data-aos="fade-up">
-              AI-driven tools for product teams
+              Stronger Every Day – Join Our Fitness Revolution!
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
                 className="mb-8 text-xl text-indigo-200/65"
                 data-aos="fade-up"
                 data-aos-delay={200}>
-                Our landing page template works on all devices, so you only have
-                to set it up once, and get beautiful results forever.
+                Join a community that pushes you to be your best. Whether you're
+                a beginner or a pro, our expert trainers and state-of-the-art
+                facilities will help you achieve your fitness goals.
               </p>
               <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
                 <div

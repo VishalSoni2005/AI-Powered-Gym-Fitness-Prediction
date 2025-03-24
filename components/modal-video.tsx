@@ -28,6 +28,16 @@ export default function ModalVideo({
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+
+    const [maskPosition, setMaskPosition] = useState({ x: "0%", y: "0%" });
+  
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = `${e.clientX - rect.left}px`;
+      const y = `${e.clientY - rect.top}px`;
+      setMaskPosition({ x, y });
+    };
+
   return (
     <div className="relative">
       {/* Secondary illustration */}
@@ -52,14 +62,15 @@ export default function ModalVideo({
         aria-label="Watch the video"
         data-aos="fade-up"
         data-aos-delay={200}>
-        <figure className="relative overflow-hidden rounded-2xl before:absolute before:inset-0 before:-z-10 before:bg-linear-to-br before:from-gray-900 before:via-indigo-500/20 before:to-gray-900 ">
+       
+        <figure
+          className="relative overflow-hidden rounded-2xl"
+          onMouseMove={handleMouseMove} // ✅ Use onMouseMove instead of onMouseOver
+        >
           <Image
-            // className="opacity-50 grayscale"
 
-            className="grayscale
-            transition-all
-            duration-300
-            group-hover:grayscale-0
+            className="grayscale object-cover
+            w-full h-full
             "
             src={thumb}
             width={thumbWidth}
@@ -67,11 +78,21 @@ export default function ModalVideo({
             priority
             alt={thumbAlt}
           />
-        
+          <Image
 
+            className="object-cover absolute top-0 left-0 inset-0
+            "
+            src={thumb}
+            width={thumbWidth}
+            height={thumbHeight}
+            priority
+            alt={thumbAlt}
+            style={{
+              maskImage: `radial-gradient(circle 200px at ${maskPosition.x} ${maskPosition.y}, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%)`,
+              WebkitMaskImage: `radial-gradient(circle 200px at ${maskPosition.x} ${maskPosition.y}, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%)`,
+            }}
+          />
         </figure>
-
-        
 
         {/* Play icon */}
         <span className="pointer-events-none absolute p-2.5 before:absolute before:inset-0 before:rounded-full before:bg-gray-950 before:duration-300 group-hover:before:scale-110">
@@ -107,7 +128,7 @@ export default function ModalVideo({
             <span className="text-sm font-medium leading-tight text-gray-300">
               Watch Demo
               <span className="text-gray-600"> - </span>
-              3:47
+              3:44
             </span>
           </span>
         </span>
