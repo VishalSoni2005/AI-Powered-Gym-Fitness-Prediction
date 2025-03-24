@@ -174,9 +174,9 @@ export default function FitnessPredictionForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-zinc-800 border-zinc-700">
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem  value="male">Male</SelectItem>
+                        <SelectItem  value="female">Female</SelectItem>
+                        <SelectItem className="bg-red-600" value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

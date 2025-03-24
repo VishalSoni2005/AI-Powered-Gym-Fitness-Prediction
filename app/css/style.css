@@ -210,3 +210,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* .group:hover {
+  --x: 50%;
+  --y: 50%;
+}
+
+.group:hover .mask-[radial-gradient] {
+  mask-image: radial-gradient(circle 80px at var(--x) var(--y), rgba(18, 237, 18, 0) 40%, rgba(0, 0, 0, 1) 70%);
+  -webkit-mask-image: radial-gradient(circle 80px at var(--x) var(--y), rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 1) 70%);
+} */

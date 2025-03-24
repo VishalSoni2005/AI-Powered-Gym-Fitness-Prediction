@@ -32,11 +32,10 @@ export default function ModalVideo({
     <div className="relative">
       {/* Secondary illustration */}
       <div
-        className="pointer-events-none absolute bottom-8 left-1/2 -z-10 -ml-28 -translate-x-1/2 translate-y-1/2"
-        aria-hidden="true"
-      >
+        className="pointer-events-none cursor-pointer absolute bottom-8 left-1/2 -z-10 -ml-28 -translate-x-1/2 translate-y-1/2"
+        aria-hidden="true">
         <Image
-          className="md:max-w-none"
+          className="md:max-w-none "
           src={SecondaryIllustration}
           width={1165}
           height={1012}
@@ -52,18 +51,28 @@ export default function ModalVideo({
         }}
         aria-label="Watch the video"
         data-aos="fade-up"
-        data-aos-delay={200}
-      >
-        <figure className="relative overflow-hidden rounded-2xl before:absolute before:inset-0 before:-z-10 before:bg-linear-to-br before:from-gray-900 before:via-indigo-500/20 before:to-gray-900">
+        data-aos-delay={200}>
+        <figure className="relative overflow-hidden rounded-2xl before:absolute before:inset-0 before:-z-10 before:bg-linear-to-br before:from-gray-900 before:via-indigo-500/20 before:to-gray-900 ">
           <Image
-            className="opacity-50 grayscale"
+            // className="opacity-50 grayscale"
+
+            className="grayscale
+            transition-all
+            duration-300
+            group-hover:grayscale-0
+            "
             src={thumb}
             width={thumbWidth}
             height={thumbHeight}
             priority
             alt={thumbAlt}
           />
+        
+
         </figure>
+
+        
+
         {/* Play icon */}
         <span className="pointer-events-none absolute p-2.5 before:absolute before:inset-0 before:rounded-full before:bg-gray-950 before:duration-300 group-hover:before:scale-110">
           <span className="relative flex items-center gap-3">
@@ -71,8 +80,7 @@ export default function ModalVideo({
               xmlns="http://www.w3.org/2000/svg"
               width={20}
               height={20}
-              fill="none"
-            >
+              fill="none">
               <path
                 fill="url(#pla)"
                 fillRule="evenodd"
@@ -86,10 +94,13 @@ export default function ModalVideo({
                   x2={10}
                   y1={0}
                   y2={20}
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#6366F1" />
-                  <stop offset={1} stopColor="#6366F1" stopOpacity=".72" />
+                  <stop
+                    offset={1}
+                    stopColor="#6366F1"
+                    stopOpacity=".72"
+                  />
                 </linearGradient>
               </defs>
             </svg>
@@ -106,8 +117,7 @@ export default function ModalVideo({
       <Dialog
         initialFocus={videoRef}
         open={modalOpen}
-        onClose={() => setModalOpen(false)}
-      >
+        onClose={() => setModalOpen(false)}>
         <DialogBackdrop
           transition
           className="fixed inset-0 z-99999 bg-black/70 transition-opacity duration-300 ease-out data-closed:opacity-0"
@@ -116,16 +126,17 @@ export default function ModalVideo({
           <div className="mx-auto flex h-full max-w-6xl items-center">
             <DialogPanel
               transition
-              className="aspect-video max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-closed:scale-95 data-closed:opacity-0"
-            >
+              className="aspect-video max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-closed:scale-95 data-closed:opacity-0">
               <video
                 ref={videoRef}
                 width={videoWidth}
                 height={videoHeight}
                 loop
-                controls
-              >
-                <source src={video} type="video/mp4" />
+                controls>
+                <source
+                  src={video}
+                  type="video/mp4"
+                />
                 Your browser does not support the video tag.
               </video>
             </DialogPanel>
