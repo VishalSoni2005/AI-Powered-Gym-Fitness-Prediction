@@ -1,65 +1,134 @@
-'use client';
-import React, { useState } from "react";
+"use client";
+import AOS from "aos";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 const testimonials = [
   {
     id: 1,
-    name: "John Doe",
+    name: "Vishal Soni",
     feedback: "The trainers are highly professional and very supportive.",
     trainerStars: 5,
     facilityStars: 4,
+    personalTrainingStars: 5,
+    equipmentStars: 4,
   },
   {
     id: 2,
-    name: "Emily Smith",
+    name: "Prachi Vijaykar",
     feedback: "The gym has excellent facilities and modern equipment!",
     trainerStars: 4,
     facilityStars: 5,
+    personalTrainingStars: 5,
+    equipmentStars: 5,
   },
   {
     id: 3,
-    name: "Mark Johnson",
+    name: "Mansi ",
     feedback: "A well-maintained gym with experienced trainers.",
     trainerStars: 5,
     facilityStars: 5,
+
+    personalTrainingStars: 5,
+    equipmentStars: 4,
   },
   {
     id: 4,
-    name: "Sophia Brown",
+    name: "Harshata chaudhary",
     feedback: "Great environment, but trainers could be more attentive.",
     trainerStars: 3,
     facilityStars: 5,
+    personalTrainingStars: 4,
+    equipmentStars: 5,
+  },
+  {
+    id: 5,
+    name: "Sherya ji",
+    feedback: "Great environment, but trainers could be more attentive.",
+    trainerStars: 3,
+    facilityStars: 5,
+    personalTrainingStars: 4,
+    equipmentStars: 5,
+  },
+  {
+    id: 6,
+    name: "Aditi Yadav",
+    feedback: "Great environment, but trainers could be more attentive.",
+    trainerStars: 3,
+    facilityStars: 5,
+    personalTrainingStars: 4,
+    equipmentStars: 5,
   },
 ];
 
-// The rest of the component remains the same...
-
-
 const TestimonialSection = () => {
-  const [sortBy, setSortBy] = useState<"trainerStars" | "facilityStars">("trainerStars");
+  const [sortBy, setSortBy] = useState<
+    | "trainerStars"
+    | "facilityStars"
+    | "personalTrainingStars"
+    | "equipmentStars"
+  >("trainerStars");
+
+  const [newKey, setNewKey] = useState(0);
+
+  const handleSort = (
+    newSort:
+      | "trainerStars"
+      | "equipmentStars"
+      | "personalTrainingStars"
+      | "facilityStars"
+  ) => {
+    setSortBy(newSort);
+    setNewKey((prev) => prev + 1);
+    AOS.refresh();
+  };
 
   const sortedTestimonials = [...testimonials].sort(
+    //* to sort testimonal as objects
     (a, b) => b[sortBy] - a[sortBy]
   );
+
+  useEffect(() => {
+    AOS.init({ duration: 500 });
+  }, []);
 
   return (
     <div className="p-6">
       <h2 className="text-3xl font-bold text-center mb-6">Gym Testimonials</h2>
-      <div className="flex justify-center gap-4 mb-4">
-        <Button onClick={() => setSortBy("trainerStars")}>
+      {/* Add sorting buttons here */}
+      <div
+        className="md:flex justify-center gap-4 mb-4 sm:hidden"
+        data-aos="fade-right">
+        <Button onClick={() => handleSort("trainerStars")}>
           Sort by Trainer Rating
         </Button>
-        <Button onClick={() => setSortBy("facilityStars")}>
+        <Button onClick={() => handleSort("facilityStars")}>
           Sort by Facility Rating
         </Button>
+        <Button onClick={() => handleSort("personalTrainingStars")}>
+          Sort by Personal Training
+        </Button>
+        <Button onClick={() => handleSort("equipmentStars")}>
+          Sort by Equipment
+        </Button>
       </div>
+      {/* Add testimonials here */}
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {sortedTestimonials.map(
-          ({ id, name, feedback, trainerStars, facilityStars }) => (
+          ({
+            id,
+            name,
+            feedback,
+            trainerStars,
+            facilityStars,
+            personalTrainingStars,
+            equipmentStars,
+          }) => (
             <Card
-              key={id}
+              data-aos="fade-up"
+              key={`${id} - ${newKey}`}
+              data-aos-delay={100 + id * 100}
               className="p-4 border rounded-lg shadow-md">
               <CardContent>
                 <p className="text-lg font-semibold">{name}</p>
@@ -68,6 +137,12 @@ const TestimonialSection = () => {
                   Trainer Rating: ⭐ {trainerStars}/5
                 </p>
                 <p className="text-sm">Facility Rating: ⭐ {facilityStars}/5</p>
+                <p className="text-sm">
+                  Personal Training: ⭐ {personalTrainingStars}/5
+                </p>
+                <p className="text-sm">
+                  Personal Training: ⭐ {equipmentStars}/5
+                </p>
               </CardContent>
             </Card>
           )

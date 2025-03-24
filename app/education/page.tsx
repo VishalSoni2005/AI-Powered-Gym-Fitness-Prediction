@@ -22,49 +22,49 @@ export default function EducationPage() {
             id="strength-training"
             title="Strength Training"
             description="Build muscle, increase strength, and improve your overall physique with resistance training."
-            imageUrl="/images/client-logo-11.avif"
+            imageUrl="/images/client-logo-11.jpg"
           />
 
           <CategoryContent
             id="cardio"
             title="Cardiovascular Training"
             description="Improve heart health, burn calories, and boost endurance with effective cardio workouts."
-            imageUrl="/images/client-logo-12.avif"
+            imageUrl="/images/client-logo-12.jpg"
           />
 
           <CategoryContent
             id="flexibility"
             title="Flexibility & Mobility"
             description="Enhance your range of motion, prevent injuries, and improve performance with proper stretching techniques."
-            imageUrl="/images/client-logo-14.avif"
+            imageUrl="/images/client-logo-13.jpg"
           />
 
           <CategoryContent
             id="nutrition"
             title="Nutrition & Diet"
             description="Fuel your body properly to support your fitness goals, recovery, and overall health."
-            imageUrl="/images/client-logo-13.avif"
+            imageUrl="/images/client-logo-14.jpg"
           />
 
           <CategoryContent
             id="recovery"
             title="Recovery & Rest"
             description="Optimize your results by understanding the importance of proper recovery techniques and adequate rest."
-            imageUrl="/images/client-logo-13.avif"
+            imageUrl="/images/client-logo-15.jpg"
           />
 
           <CategoryContent
             id="hiit"
             title="High-Intensity Interval Training (HIIT)"
             description="Maximize calorie burn and improve conditioning with time-efficient, high-intensity workouts."
-            imageUrl="/images/client-logo-13.avif"
+            imageUrl="/images/client-logo-16.jpg"
           />
 
           <CategoryContent
             id="calisthenics"
             title="Calisthenics & Bodyweight Training"
             description="Master your own bodyweight with functional movements that build strength, control, and body awareness."
-            imageUrl="/images/client-logo-13.avif"
+            imageUrl="/images/client-logo-17.jpg"
           />
         </div>
 
