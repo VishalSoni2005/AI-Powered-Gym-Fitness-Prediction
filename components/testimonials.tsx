@@ -73,8 +73,8 @@ const TestimonialSection = () => {
   const [newKey, setNewKey] = useState(0);
 
   const handleSort = (
-    newSort:
-      | "trainerStars"
+    newSort: //? newSort is the new sorting category that is passed when a button is clicked.
+    | "trainerStars"
       | "equipmentStars"
       | "personalTrainingStars"
       | "facilityStars"
@@ -98,7 +98,7 @@ const TestimonialSection = () => {
       <h2 className="text-3xl font-bold text-center mb-6">Gym Testimonials</h2>
       {/* Add sorting buttons here */}
       <div
-        className="md:flex justify-center gap-4 mb-4 sm:hidden"
+        className="md:flex justify-center gap-4 mb-4 sm:hidden "
         data-aos="fade-right">
         <Button onClick={() => handleSort("trainerStars")}>
           Sort by Trainer Rating
@@ -129,7 +129,7 @@ const TestimonialSection = () => {
               data-aos="fade-up"
               key={`${id} - ${newKey}`}
               data-aos-delay={100 + id * 100}
-              className="p-4 border rounded-lg shadow-md">
+              className="p-4 border rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1">
               <CardContent>
                 <p className="text-lg font-semibold">{name}</p>
                 <p className="text-gray-600">{feedback}</p>

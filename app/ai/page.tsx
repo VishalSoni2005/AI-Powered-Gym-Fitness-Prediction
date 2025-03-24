@@ -1,6 +1,6 @@
 import FitnessPredictionForm from "@/components/fitness-prediction-form";
 export const metadata = {
-  title: "XXX Gym",
+  title: "Fit Starts",
   description: "Page description",
 };
 

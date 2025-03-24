@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "XXX Gym",
+  title: "Fit Starts",
   description: "Page description",
 };
 
