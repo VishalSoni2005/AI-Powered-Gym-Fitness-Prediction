@@ -2,8 +2,7 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-//todo: updated api key and put this in environment
-const API_KEY = "AIzaSyDxjxuUY5cwT70aleFXuR3pdc7JtxZY9Do";
+let API_KEY: string = process.env.NEXT_PUBLIC_API_KEY ?? "";
 
 export async function getPrediction(userData: {
   weight: string;
