@@ -14,6 +14,8 @@ export interface Product {
   specifications: { name: string; value: string }[];
 }
 
+import creatine from '/creatine.webp';
+
 const products: Product[] = [
   // Creatine Products
   {
@@ -24,7 +26,7 @@ const products: Product[] = [
     price: 1299,
     discountedPrice: 999,
     discount: 23,
-    image: "/placeholder.svg?height=400&width=400",
+    image: '/creatine.webp',
     rating: 4.7,
     reviewCount: 1245,
     description:
