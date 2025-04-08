@@ -26,7 +26,7 @@ const products: Product[] = [
     price: 1299,
     discountedPrice: 999,
     discount: 23,
-    image: '/creatine.webp',
+    image: "/products/c1.jpg",
     rating: 4.7,
     reviewCount: 1245,
     description:
@@ -47,6 +47,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "creatine-2",
     slug: "muscletech-platinum-creatine",
@@ -55,7 +56,7 @@ const products: Product[] = [
     price: 999,
     discountedPrice: 799,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/c2.jpg",
     rating: 4.5,
     reviewCount: 856,
     description:
@@ -76,6 +77,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "creatine-3",
     slug: "myprotein-creatine-monohydrate",
@@ -84,7 +86,7 @@ const products: Product[] = [
     price: 1499,
     discountedPrice: 1199,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/c3.jpg",
     rating: 4.6,
     reviewCount: 723,
     description:
@@ -115,7 +117,7 @@ const products: Product[] = [
     price: 3999,
     discountedPrice: 3299,
     discount: 18,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/w1.jpg",
     rating: 4.8,
     reviewCount: 2456,
     description:
@@ -139,6 +141,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "whey-2",
     slug: "muscleblaze-whey-protein",
@@ -147,7 +150,7 @@ const products: Product[] = [
     price: 2999,
     discountedPrice: 2499,
     discount: 17,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/w2.jpg",
     rating: 4.5,
     reviewCount: 1876,
     description:
@@ -168,6 +171,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "India" },
     ],
   },
+
   {
     id: "whey-3",
     slug: "dymatize-iso100-whey-protein-isolate",
@@ -176,7 +180,7 @@ const products: Product[] = [
     price: 4499,
     discountedPrice: 3799,
     discount: 16,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/w3.jpg",
     rating: 4.7,
     reviewCount: 1345,
     description:
@@ -207,7 +211,7 @@ const products: Product[] = [
     price: 4999,
     discountedPrice: 3999,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/m1.jpg",
     rating: 4.6,
     reviewCount: 1567,
     description:
@@ -231,6 +235,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "mass-2",
     slug: "muscleblaze-super-gainer-xxl",
@@ -239,7 +244,7 @@ const products: Product[] = [
     price: 3499,
     discountedPrice: 2799,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/m2.jpg",
     rating: 4.4,
     reviewCount: 987,
     description:
@@ -263,6 +268,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "India" },
     ],
   },
+
   {
     id: "mass-3",
     slug: "dymatize-super-mass-gainer",
@@ -271,7 +277,7 @@ const products: Product[] = [
     price: 4299,
     discountedPrice: 3599,
     discount: 16,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/m3.jpg",
     rating: 4.5,
     reviewCount: 765,
     description:
@@ -305,7 +311,7 @@ const products: Product[] = [
     price: 1999,
     discountedPrice: 1599,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/mv1.jpg",
     rating: 4.7,
     reviewCount: 1234,
     description:
@@ -326,6 +332,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "vitamin-2",
     slug: "muscletech-platinum-multivitamin",
@@ -334,7 +341,7 @@ const products: Product[] = [
     price: 1499,
     discountedPrice: 1199,
     discount: 20,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/mv2.jpg",
     rating: 4.5,
     reviewCount: 876,
     description:
@@ -355,6 +362,7 @@ const products: Product[] = [
       { name: "Manufactured In", value: "USA" },
     ],
   },
+
   {
     id: "vitamin-3",
     slug: "now-foods-adam-mens-multivitamin",
@@ -363,7 +371,7 @@ const products: Product[] = [
     price: 1799,
     discountedPrice: 1499,
     discount: 17,
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/products/mv3.jpg",
     rating: 4.6,
     reviewCount: 654,
     description:
