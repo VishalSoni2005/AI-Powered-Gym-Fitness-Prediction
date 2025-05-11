@@ -32,7 +32,7 @@ export default function HeroHome() {
                     href="/ai"
                     className=" btn group mb-4 w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto">
                     <span className="relative inline-flex items-center">
-                      Get Pridiction
+                      Get Prediction
                       <span className="ml-1 tracking-normal text-white/50 transition-transform group-hover:translate-x-0.5">
                         -&gt;
                       </span>

@@ -1,14 +1,23 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import AOS from "aos";
-import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { User, Dumbbell, Building, Clipboard } from "lucide-react";
+import Image from 'next/image';
+import BackImage from '@/public/images/blurred-shape.svg'
 
+// Testimonial data
 const testimonials = [
   {
     id: 1,
     name: "Vishal Soni",
-    feedback: "The trainers are highly professional and very supportive.",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "The trainers are highly professional and very supportive. They helped me achieve my fitness goals faster than I expected.",
     trainerStars: 5,
     facilityStars: 4,
     personalTrainingStars: 5,
@@ -17,7 +26,9 @@ const testimonials = [
   {
     id: 2,
     name: "Prachi Vijaykar",
-    feedback: "The gym has excellent facilities and modern equipment!",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "The gym has excellent facilities and modern equipment! The environment is always clean and motivating.",
     trainerStars: 4,
     facilityStars: 5,
     personalTrainingStars: 5,
@@ -25,18 +36,21 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Mansi ",
-    feedback: "A well-maintained gym with experienced trainers.",
+    name: "Mansi",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "A well-maintained gym with experienced trainers. The personalized workout plans have been transformative for my fitness journey.",
     trainerStars: 5,
     facilityStars: 5,
-
     personalTrainingStars: 5,
     equipmentStars: 4,
   },
   {
     id: 4,
-    name: "Harshata chaudhary",
-    feedback: "Great environment, but trainers could be more attentive.",
+    name: "Harshata Chaudhary",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "Great environment, but trainers could be more attentive. The equipment is top-notch and always well maintained.",
     trainerStars: 3,
     facilityStars: 5,
     personalTrainingStars: 4,
@@ -44,8 +58,10 @@ const testimonials = [
   },
   {
     id: 5,
-    name: "Sherya ji",
-    feedback: "Great environment, but trainers could be more attentive.",
+    name: "Shreya Ji",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "I've tried many gyms, but this one stands out for its community feel and supportive atmosphere. The trainers really care about your progress.",
     trainerStars: 3,
     facilityStars: 5,
     personalTrainingStars: 4,
@@ -54,7 +70,9 @@ const testimonials = [
   {
     id: 6,
     name: "Aditi Yadav",
-    feedback: "Great environment, but trainers could be more attentive.",
+    avatar: "/placeholder.svg?height=40&width=40",
+    feedback:
+      "The personal training sessions are worth every penny. My fitness has improved dramatically since joining this gym.",
     trainerStars: 3,
     facilityStars: 5,
     personalTrainingStars: 4,
@@ -62,30 +80,43 @@ const testimonials = [
   },
 ];
 
-const TestimonialSection = () => {
-  const [sortBy, setSortBy] = useState<
-    | "trainerStars"
-    | "facilityStars"
-    | "personalTrainingStars"
-    | "equipmentStars"
-  >("trainerStars");
+// Star Rating component
+const StarRating = ({ rating }: { rating: number }) => {
+  return (
+    <div className="flex">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${
+            i < rating ? "text-yellow-400" : "text-gray-300"
+          }`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+};
 
+type SortCategory =
+  | "trainerStars"
+  | "facilityStars"
+  | "personalTrainingStars"
+  | "equipmentStars";
+
+const TestimonialSection = () => {
+  const [sortBy, setSortBy] = useState<SortCategory>("trainerStars");
   const [newKey, setNewKey] = useState(0);
 
-  const handleSort = (
-    newSort: //? newSort is the new sorting category that is passed when a button is clicked.
-    | "trainerStars"
-      | "equipmentStars"
-      | "personalTrainingStars"
-      | "facilityStars"
-  ) => {
+  const handleSort = (newSort: SortCategory) => {
     setSortBy(newSort);
     setNewKey((prev) => prev + 1);
     AOS.refresh();
   };
 
   const sortedTestimonials = [...testimonials].sort(
-    //* to sort testimonal as objects
     (a, b) => b[sortBy] - a[sortBy]
   );
 
@@ -94,345 +125,247 @@ const TestimonialSection = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold text-center mb-6">Gym Testimonials</h2>
-      {/* Add sorting buttons here */}
+    <section className="py-16 relative bg-gradient-to-b from-gray-900 to-gray-950">
       <div
-        className="md:flex justify-center gap-4 mb-4 sm:hidden "
-        data-aos="fade-right">
-        <Button onClick={() => handleSort("trainerStars")}>
-          Sort by Trainer Rating
-        </Button>
-        <Button onClick={() => handleSort("facilityStars")}>
-          Sort by Facility Rating
-        </Button>
-        <Button onClick={() => handleSort("personalTrainingStars")}>
-          Sort by Personal Training
-        </Button>
-        <Button onClick={() => handleSort("equipmentStars")}>
-          Sort by Equipment
-        </Button>
+        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 -translate-x-1/2"
+        aria-hidden="true">
+        <Image
+          className="max-w-none"
+          src={BackImage}
+          width={1076}
+          height={378}
+          alt="Footer illustration"
+        />
       </div>
-      {/* Add testimonials here */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {sortedTestimonials.map(
-          ({
-            id,
-            name,
-            feedback,
-            trainerStars,
-            facilityStars,
-            personalTrainingStars,
-            equipmentStars,
-          }) => (
-            <Card
-              data-aos="fade-up"
-              key={`${id} - ${newKey}`}
-              data-aos-delay={100 + id * 100}
-              className="p-4 border rounded-lg shadow-md transition-all duration-300 transform hover:-translate-y-1">
-              <CardContent>
-                <p className="text-lg font-semibold">{name}</p>
-                <p className="text-gray-600">{feedback}</p>
-                <p className="mt-2 text-sm">
-                  Trainer Rating: ⭐ {trainerStars}/5
-                </p>
-                <p className="text-sm">Facility Rating: ⭐ {facilityStars}/5</p>
-                <p className="text-sm">
-                  Personal Training: ⭐ {personalTrainingStars}/5
-                </p>
-                <p className="text-sm">
-                  Personal Training: ⭐ {equipmentStars}/5
-                </p>
-              </CardContent>
-            </Card>
-          )
-        )}
+      <div className="container mx-auto px-4">
+        {/* Section header */}
+
+        <div
+          className="text-center mb-12"
+          data-aos="fade-down">
+          <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-linear-to-r before:from-transparent before:to-red-200/50 after:h-px after:w-8 after:bg-linear-to-l after:from-transparent after:to-red-200/50">
+            <span className="inline-flex bg-linear-to-r from-yellow-600 to-orange-400 to-yellow-300 bg-clip-text text-transparent">
+              Member Experiences
+            </span>
+          </div>
+          <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-yellow-100),var(--color-yellow-300),var(--color-amber-300),var(--color-yellow-500),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle font-semibold text-transparent md:text-4xl bold text-4xl">
+            What Our Members Say
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Hear from our community about their transformative fitness journeys
+            and experiences with our gym.
+          </p>
+        </div>
+
+        {/* Sorting tabs - Desktop */}
+        <div
+          className="hidden md:block mb-10"
+          data-aos="fade-up">
+          <Tabs
+            defaultValue="trainerStars"
+            className="w-full max-w-3xl mx-auto">
+            <TabsList className="grid grid-cols-4 mb-8">
+              <TabsTrigger
+                value="trainerStars"
+                onClick={() => handleSort("trainerStars")}
+                className={`flex items-center gap-2 ${
+                  sortBy === "trainerStars" ? "bg-red-600/20" : ""
+                }`}>
+                <User size={16} />
+                <span>Trainers</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="facilityStars"
+                onClick={() => handleSort("facilityStars")}
+                className={`flex items-center gap-2 ${
+                  sortBy === "facilityStars" ? "bg-red-600/20" : ""
+                }`}>
+                <Building size={16} />
+                <span>Facilities</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="personalTrainingStars"
+                onClick={() => handleSort("personalTrainingStars")}
+                className={`flex items-center gap-2 ${
+                  sortBy === "personalTrainingStars" ? "bg-red-600/20" : ""
+                }`}>
+                <Clipboard size={16} />
+                <span>Training</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="equipmentStars"
+                onClick={() => handleSort("equipmentStars")}
+                className={`flex items-center gap-2 ${
+                  sortBy === "equipmentStars" ? "bg-red-600/20" : ""
+                }`}>
+                <Dumbbell size={16} />
+                <span>Equipment</span>
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
+        {/* Sorting buttons - Mobile */}
+        <div
+          className="md:hidden mb-8 overflow-x-auto pb-2"
+          data-aos="fade-right">
+          <div className="flex gap-2 min-w-max">
+            <Button
+              variant={sortBy === "trainerStars" ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleSort("trainerStars")}
+              className="flex items-center gap-1">
+              <User size={14} />
+              <span>Trainers</span>
+            </Button>
+            <Button
+              variant={sortBy === "facilityStars" ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleSort("facilityStars")}
+              className="flex items-center gap-1">
+              <Building size={14} />
+              <span>Facilities</span>
+            </Button>
+            <Button
+              variant={
+                sortBy === "personalTrainingStars" ? "default" : "outline"
+              }
+              size="sm"
+              onClick={() => handleSort("personalTrainingStars")}
+              className="flex items-center gap-1">
+              <Clipboard size={14} />
+              <span>Training</span>
+            </Button>
+            <Button
+              variant={sortBy === "equipmentStars" ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleSort("equipmentStars")}
+              className="flex items-center gap-1">
+              <Dumbbell size={14} />
+              <span>Equipment</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Testimonial cards */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {sortedTestimonials.map(
+            ({
+              id,
+              name,
+              avatar,
+              feedback,
+              trainerStars,
+              facilityStars,
+              personalTrainingStars,
+              equipmentStars,
+            }) => (
+              <Card
+                data-aos="fade-up"
+                key={`${id}-${newKey}`}
+                data-aos-delay={100 + id * 50}
+                className="bg-gray-800/50 border-gray-700 overflow-hidden relative group">
+                {/* Highlight for the current sort category */}
+                <div
+                  className={`absolute top-0 left-0 w-1 h-full bg-red-500 transition-all duration-300 ${
+                    (sortBy === "trainerStars" && trainerStars >= 4) ||
+                    (sortBy === "facilityStars" && facilityStars >= 4) ||
+                    (sortBy === "personalTrainingStars" &&
+                      personalTrainingStars >= 4) ||
+                    (sortBy === "equipmentStars" && equipmentStars >= 4)
+                      ? "opacity-100"
+                      : "opacity-0"
+                  }`}></div>
+
+                <CardContent className="p-6">
+                  {/* Quote icon */}
+                  <div className="absolute top-4 right-4 text-red-500/20">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      stroke="none">
+                      <path d="M11.9 8.4c-.5-.3-1-.4-1.7-.4-3 0-5.5 2.4-5.5 5.5 0 3 2.4 5.5 5.5 5.5 3 0 5.5-2.4 5.5-5.5 0-1.1-.3-2.1-.9-3l-2.9-2.1zm-1.7 8.5c-1.9 0-3.4-1.5-3.4-3.4 0-1.9 1.5-3.4 3.4-3.4.5 0 .9.1 1.3.3l2 1.5c.3.5.5 1 .5 1.6 0 1.9-1.5 3.4-3.4 3.4z" />
+                      <path d="M20.2 8.4c-.5-.3-1-.4-1.7-.4-3 0-5.5 2.4-5.5 5.5 0 3 2.4 5.5 5.5 5.5 3 0 5.5-2.4 5.5-5.5 0-1.1-.3-2.1-.9-3l-2.9-2.1zm-1.7 8.5c-1.9 0-3.4-1.5-3.4-3.4 0-1.9 1.5-3.4 3.4-3.4.5 0 .9.1 1.3.3l2 1.5c.3.5.5 1 .5 1.6 0 1.9-1.5 3.4-3.4 3.4z" />
+                    </svg>
+                  </div>
+
+                  {/* User info */}
+                  <div className="flex items-center mb-4">
+                    {/* <Avatar className="h-10 w-10 mr-3 border-2 border-red-500/20">
+                      <AvatarImage
+                        src={avatar || "/placeholder.svg"}
+                        alt={name}
+                      />
+                      <AvatarFallback className="bg-red-500/10 text-red-500">
+                        {name.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar> */}
+                    <div>
+                      <h4 className="font-semibold text-white">{name}</h4>
+                      <div className="flex">
+                        <StarRating
+                          rating={
+                            sortBy === "trainerStars"
+                              ? trainerStars
+                              : sortBy === "facilityStars"
+                              ? facilityStars
+                              : sortBy === "personalTrainingStars"
+                              ? personalTrainingStars
+                              : equipmentStars
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Testimonial content */}
+                  <p className="text-gray-300 mb-4 italic">{feedback}</p>
+
+                  {/* Ratings */}
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-4 border-t border-gray-700/50 text-xs text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <User size={12} />
+                      <span>Trainers:</span>
+                      <StarRating rating={trainerStars} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Building size={12} />
+                      <span>Facility:</span>
+                      <StarRating rating={facilityStars} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clipboard size={12} />
+                      <span>Training:</span>
+                      <StarRating rating={personalTrainingStars} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Dumbbell size={12} />
+                      <span>Equipment:</span>
+                      <StarRating rating={equipmentStars} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )
+          )}
+        </div>
+
+        {/* Call to action */}
+        <div
+          className="text-center mt-12"
+          data-aos="fade-up">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600">
+            Join Our Community
+          </Button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default TestimonialSection;
-
-// "use client";
-
-// import { useState } from "react";
-// import useMasonry from "@/utils/useMasonry";
-// import Image, { StaticImageData } from "next/image";
-// import TestimonialImg01 from "@/public/images/testimonial-01.jpg";
-// import TestimonialImg02 from "@/public/images/testimonial-02.jpg";
-// import TestimonialImg03 from "@/public/images/testimonial-03.jpg";
-// import TestimonialImg04 from "@/public/images/testimonial-04.jpg";
-// import TestimonialImg05 from "@/public/images/testimonial-05.jpg";
-// import TestimonialImg06 from "@/public/images/testimonial-06.jpg";
-// import TestimonialImg07 from "@/public/images/testimonial-07.jpg";
-// import TestimonialImg08 from "@/public/images/testimonial-08.jpg";
-// import TestimonialImg09 from "@/public/images/testimonial-09.jpg";
-// import ClientImg01 from "@/public/images/client-logo-01.svg";
-// import ClientImg02 from "@/public/images/client-logo-02.svg";
-// import ClientImg03 from "@/public/images/client-logo-03.svg";
-// import ClientImg04 from "@/public/images/client-logo-04.svg";
-// import ClientImg05 from "@/public/images/client-logo-05.svg";
-// import ClientImg06 from "@/public/images/client-logo-06.svg";
-// import ClientImg07 from "@/public/images/client-logo-07.svg";
-// import ClientImg08 from "@/public/images/client-logo-08.svg";
-// import ClientImg09 from "@/public/images/client-logo-09.svg";
-
-// const testimonials = [
-//   {
-//     img: TestimonialImg01,
-//     clientImg: ClientImg01,
-//     name: "MaKayla P.",
-//     company: "Disney",
-//     content:
-//       "As a content creator, I was always on the lookout for a tool that could help me keep up with the demand. The AI-driven content tool has been a game-changer. It generates high-quality content in a fraction of the time it used to take me.",
-//     categories: [1, 3, 5],
-//   },
-//   {
-//     img: TestimonialImg02,
-//     clientImg: ClientImg02,
-//     name: "Andrew K.",
-//     company: "Samsung",
-//     content:
-//       "I've tried several content generation tools, but this AI-driven tool is by far the best. It understands my brand's voice and consistently produces content that resonates with my audience!",
-//     categories: [1, 2, 4],
-//   },
-//   {
-//     img: TestimonialImg03,
-//     clientImg: ClientImg03,
-//     name: "Lucy D.",
-//     company: "Rio",
-//     content:
-//       "Content creation used to be a bottleneck in our workflow, but not anymore. This AI tool is intuitive and produces top-notch content every time. It's like having an extra team member who never sleeps! Definitely recommend.",
-//     categories: [1, 2, 5],
-//   },
-//   {
-//     img: TestimonialImg04,
-//     clientImg: ClientImg04,
-//     name: "Pavel M.",
-//     company: "Canon",
-//     content:
-//       "The quality of the content generated by this AI tool is outstanding. It has taken our content marketing to new heights, allowing us to publish more frequently without compromising on quality. Highly recommended for anyone.",
-//     categories: [1, 4],
-//   },
-//   {
-//     img: TestimonialImg05,
-//     clientImg: ClientImg05,
-//     name: "Miriam E.",
-//     company: "Cadbury",
-//     content:
-//       "The AI-driven content tool has been a lifesaver for my marketing agency. We can now produce high-quality content for multiple clients quickly and efficiently. It's an invaluable asset to our team.",
-//     categories: [1, 3, 5],
-//   },
-//   {
-//     img: TestimonialImg06,
-//     clientImg: ClientImg06,
-//     name: "Eloise V.",
-//     company: "Maffell",
-//     content:
-//       "I'm amazed at how well this AI-driven content tool performs. It's incredibly versatile and can generate content for blogs, social media, and even product descriptions effortlessly. It's fantastic!",
-//     categories: [1, 3],
-//   },
-//   {
-//     img: TestimonialImg07,
-//     clientImg: ClientImg07,
-//     name: "Pierre-Gilles L.",
-//     company: "Binance",
-//     content:
-//       "I was blown away by how easy it was to create my content using this tool! Within a few hours, I had a professional-looking platform up and running, and my client could not believe it.",
-//     categories: [1, 2, 5],
-//   },
-//   {
-//     img: TestimonialImg08,
-//     clientImg: ClientImg08,
-//     name: "Danielle K.",
-//     company: "Forbes Inc.",
-//     content:
-//       "I've never been a fan of complicated website AI tools, which is why Open PRO is perfect for me. Its minimalist design and simple functionality make staying organized feel like second nature.",
-//     categories: [1, 4],
-//   },
-//   {
-//     img: TestimonialImg09,
-//     clientImg: ClientImg09,
-//     name: "Mary P.",
-//     company: "Ray Ban",
-//     content:
-//       "I've never been one for coding, so finding an AI tool that doesn't require any technical skills was a dream come true. This tool exceeded my expectations, and I'm proud to show off my new stuff to friends.",
-//     categories: [1, 2],
-//   },
-// ];
-
-// export default function Testimonials() {
-//   const masonryContainer = useMasonry();
-//   const [category, setCategory] = useState<number>(1);
-
-//   return (
-//     <div className="mx-auto max-w-6xl px-4 sm:px-6">
-//       <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-400/.25),transparent)1] md:py-20">
-//         {/* Section header */}
-//         <div className="mx-auto max-w-3xl pb-12 text-center">
-//           <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
-//             Don't take our word for it
-//           </h2>
-//           <p className="text-lg text-indigo-200/65">
-//             We provide tech-first solutions that empower decision-makers to
-//             build healthier and happier workspaces from anywhere in the world.
-//           </p>
-//         </div>
-
-//         <div>
-//           {/* Buttons */}
-//           <div className="flex justify-center pb-12 max-md:hidden md:pb-16">
-//             <div className="relative inline-flex flex-wrap justify-center rounded-[1.25rem] bg-gray-800/40 p-1">
-//               {/* Button #1 */}
-//               <button
-//                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-200 ${category === 1 ? "relative bg-linear-to-b from-gray-900 via-gray-800/60 to-gray-900 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_bottom,--theme(--color-indigo-500/0),--theme(--color-indigo-500/.5))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
-//                 aria-pressed={category === 1}
-//                 onClick={() => setCategory(1)}
-//               >
-//                 <svg
-//                   className={`fill-current ${category === 1 ? "text-indigo-500" : "text-gray-600"}`}
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="16"
-//                   height={16}
-//                 >
-//                   <path d="M.062 10.003a1 1 0 0 1 1.947.455c-.019.08.01.152.078.19l5.83 3.333c.052.03.115.03.168 0l5.83-3.333a.163.163 0 0 0 .078-.188 1 1 0 0 1 1.947-.459 2.161 2.161 0 0 1-1.032 2.384l-5.83 3.331a2.168 2.168 0 0 1-2.154 0l-5.83-3.331a2.162 2.162 0 0 1-1.032-2.382Zm7.854-7.981-5.83 3.332a.17.17 0 0 0 0 .295l5.828 3.33c.054.031.118.031.17.002l5.83-3.333a.17.17 0 0 0 0-.294L8.085 2.023a.172.172 0 0 0-.17-.001ZM9.076.285l5.83 3.332c1.458.833 1.458 2.935 0 3.768l-5.83 3.333c-.667.38-1.485.38-2.153-.001l-5.83-3.332c-1.457-.833-1.457-2.935 0-3.767L6.925.285a2.173 2.173 0 0 1 2.15 0Z" />
-//                 </svg>
-//                 <span>View All</span>
-//               </button>
-//               {/* Button #2 */}
-//               <button
-//                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-200 ${category === 2 ? "relative bg-linear-to-b from-gray-900 via-gray-800/60 to-gray-900 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_bottom,--theme(--color-indigo-500/0),--theme(--color-indigo-500/.5))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
-//                 aria-pressed={category === 2}
-//                 onClick={() => setCategory(2)}
-//               >
-//                 <svg
-//                   className={`fill-current ${category === 2 ? "text-indigo-500" : "text-gray-600"}`}
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="16"
-//                   height={16}
-//                 >
-//                   <path d="M6.5 3.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM9 6.855A3.502 3.502 0 0 0 8 0a3.5 3.5 0 0 0-1 6.855v1.656L5.534 9.65a3.5 3.5 0 1 0 1.229 1.578L8 10.267l1.238.962a3.5 3.5 0 1 0 1.229-1.578L9 8.511V6.855Zm2.303 4.74c.005-.005.01-.01.013-.016l.012-.016a1.5 1.5 0 1 1-.025.032ZM3.5 11A1.497 1.497 0 0 1 5 12.5 1.5 1.5 0 1 1 3.5 11Z" />
-//                 </svg>
-//                 <span>Web Apps</span>
-//               </button>
-//               {/* Button #3 */}
-//               <button
-//                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-200 ${category === 3 ? "relative bg-linear-to-b from-gray-900 via-gray-800/60 to-gray-900 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_bottom,--theme(--color-indigo-500/0),--theme(--color-indigo-500/.5))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
-//                 aria-pressed={category === 3}
-//                 onClick={() => setCategory(3)}
-//               >
-//                 <svg
-//                   className={`fill-current ${category === 3 ? "text-indigo-500" : "text-gray-600"}`}
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="16"
-//                   height={16}
-//                 >
-//                   <path d="M2.428 10c.665-1.815 1.98-3.604 3.44-4.802-.6-1.807-1.443-3.079-2.29-3.18-1.91-.227-2.246 2.04-.174 2.962a1 1 0 1 1-.813 1.827C-1.407 5.028-.589-.491 3.815.032c1.605.191 2.925 1.811 3.79 4.07.979-.427 1.937-.51 2.735-.092.818.429 1.143 1.123 1.294 2.148.015.1.022.149.043.32.542-.537 1.003-.797 1.693-.622.64.162.894.493 1.195 1.147l.018.04a1 1 0 0 1 1.133 1.61c-.46.47-1.12.574-1.744.398a1.661 1.661 0 0 1-.87-.592 2.127 2.127 0 0 1-.224-.349 3.225 3.225 0 0 1-.55.477c-.377.253-.8.368-1.259.267-.993-.218-1.21-.779-1.367-2.05-.027-.22-.033-.262-.046-.353-.067-.452-.144-.617-.244-.67-.225-.118-.665-.013-1.206.278.297 1.243.475 2.587.516 3.941H15a1 1 0 0 1 0 2H8.68l-.025.285c-.173 1.918-.906 3.381-2.654 3.668-1.5.246-3.013-.47-3.677-1.858-.29-.637-.39-1.35-.342-2.095H1a1 1 0 0 1 0-2h1.428Zm2.11 0h2.175a18.602 18.602 0 0 0-.284-2.577c-.205.202-.408.42-.606.654A9.596 9.596 0 0 0 4.537 10Zm2.135 2H3.942c-.032.465.03.888.194 1.25.258.538.89.836 1.54.73.546-.09.888-.772.988-1.875L6.673 12Z" />
-//                 </svg>
-//                 <span>eCommerce</span>
-//               </button>
-//               {/* Button #4 */}
-//               <button
-//                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-200 ${category === 4 ? "relative bg-linear-to-b from-gray-900 via-gray-800/60 to-gray-900 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_bottom,--theme(--color-indigo-500/0),--theme(--color-indigo-500/.5))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
-//                 aria-pressed={category === 4}
-//                 onClick={() => setCategory(4)}
-//               >
-//                 <svg
-//                   className={`fill-current ${category === 4 ? "text-indigo-500" : "text-gray-600"}`}
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="16"
-//                   height={16}
-//                 >
-//                   <path d="M3.757 3.758a6 6 0 0 1 8.485 8.485 5.992 5.992 0 0 1-5.301 1.664 1 1 0 1 0-.351 1.969 8 8 0 1 0-4.247-2.218 1 1 0 0 0 1.415-.001L9.12 8.294v1.827a1 1 0 1 0 2 0v-4.2a.997.997 0 0 0-1-1.042H5.879a1 1 0 1 0 0 2h1.829l-4.599 4.598a6 6 0 0 1 .648-7.719Z" />
-//                 </svg>
-//                 <span>Enteprise</span>
-//               </button>
-//               {/* Button #5 */}
-//               <button
-//                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-3 focus-visible:ring-indigo-200 ${category === 5 ? "relative bg-linear-to-b from-gray-900 via-gray-800/60 to-gray-900 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_bottom,--theme(--color-indigo-500/0),--theme(--color-indigo-500/.5))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
-//                 aria-pressed={category === 5}
-//                 onClick={() => setCategory(5)}
-//               >
-//                 <svg
-//                   className={`fill-current ${category === 5 ? "text-indigo-500" : "text-gray-600"}`}
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="16"
-//                   height={16}
-//                 >
-//                   <path d="M13.95.879a3 3 0 0 0-4.243 0L1.293 9.293a1 1 0 0 0-.274.51l-1 5a1 1 0 0 0 1.177 1.177l5-1a1 1 0 0 0 .511-.273l1.16-1.16a1 1 0 0 0-1.414-1.414l-.946.946-3.232.646.646-3.232 8.2-8.2a1 1 0 0 1 1.414 0l1.172 1.172a1 1 0 0 1 0 1.414l-.55.549a1 1 0 0 0 1.415 1.414l.55-.55a3 3 0 0 0 0-4.241L13.948.879ZM3.25 4.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Zm11.474 6.029-1.521-.752-.752-1.521c-.168-.341-.73-.341-.896 0l-.752 1.52-1.521.753a.498.498 0 0 0 0 .896l1.52.752.753 1.52a.5.5 0 0 0 .896 0l.752-1.52 1.52-.752a.498.498 0 0 0 0-.896Z" />
-//                 </svg>
-//                 <span>Enteprise</span>
-//               </button>
-//             </div>
-//           </div>
-
-//           {/* Cards */}
-//           <div
-//             className="mx-auto grid max-w-sm items-start gap-6 sm:max-w-none sm:grid-cols-2 lg:grid-cols-3"
-//             ref={masonryContainer}
-//           >
-//             {testimonials.map((testimonial, index) => (
-//               <div key={index} className="group">
-//                 <Testimonial testimonial={testimonial} category={category}>
-//                   {testimonial.content}
-//                 </Testimonial>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export function Testimonial({
-//   testimonial,
-//   category,
-//   children,
-// }: {
-//   testimonial: {
-//     img: StaticImageData;
-//     clientImg: StaticImageData;
-//     name: string;
-//     company: string;
-//     content: string;
-//     categories: number[];
-//   };
-//   category: number;
-//   children: React.ReactNode;
-// }) {
-//   return (
-//     <article
-//       className={`relative rounded-2xl bg-linear-to-br from-gray-900/50 via-gray-800/25 to-gray-900/50 p-5 backdrop-blur-xs transition-opacity before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_right,var(--color-gray-800),var(--color-gray-700),var(--color-gray-800))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] ${!testimonial.categories.includes(category) ? "opacity-30" : ""}`}
-//     >
-//       <div className="flex flex-col gap-4">
-//         <div>
-//           <Image src={testimonial.clientImg} height={36} alt="Client logo" />
-//         </div>
-//         <p className="text-indigo-200/65 before:content-['“'] after:content-['”']">
-//           {children}
-//         </p>
-//         <div className="flex items-center gap-3">
-//           <Image
-//             className="inline-flex shrink-0 rounded-full"
-//             src={testimonial.img}
-//             width={36}
-//             height={36}
-//             alt={testimonial.name}
-//           />
-//           <div className="text-sm font-medium text-gray-200">
-//             <span>{testimonial.name}</span>
-//             <span className="text-gray-700"> - </span>
-//             <a
-//               className="text-indigo-200/65 transition-colors hover:text-indigo-500"
-//               href="#0"
-//             >
-//               {testimonial.company}
-//             </a>
-//           </div>
-//         </div>
-//       </div>
-//     </article>
-//   );
-// }
