@@ -1,214 +1,299 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import BlurredShapeGray from "@/public/images/blurred-shape-gray.svg";
-import BlurredShape from "@/public/images/blurred-shape.svg";
-import FeaturesImage from "@/public/images/features.png";
+import { motion } from "framer-motion";
+import {
+  Dumbbell,
+  Users,
+  PersonStanding,
+  Coffee,
+  Clock,
+  Shield,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Features() {
+  const [activeTab, setActiveTab] = useState("equipment");
+
+  const features = [
+    {
+      id: "equipment",
+      icon: <Dumbbell className="h-6 w-6" />,
+      title: "State-of-the-Art Equipment",
+      description:
+        "Train with premium fitness equipment from top brands. Our gym features the latest cardio machines, free weights, and specialized training zones.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-red-500 to-orange-500",
+      items: [
+        "Latest Cardio Machines",
+        "Comprehensive Free Weight Area",
+        "Functional Training Zone",
+        "Specialized Strength Equipment",
+        "Recovery & Stretching Area",
+      ],
+    },
+    {
+      id: "classes",
+      icon: <Users className="h-6 w-6" />,
+      title: "Dynamic Group Classes",
+      description:
+        "Join our energetic group fitness classes led by expert instructors. From high-intensity workouts to mind-body sessions, we have something for everyone.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-blue-500 to-indigo-500",
+      items: [
+        "HIIT & Circuit Training",
+        "Yoga & Pilates",
+        "Spinning & Cycling",
+        "Zumba & Dance Fitness",
+        "Strength & Conditioning",
+      ],
+    },
+    {
+      id: "training",
+      icon: <PersonStanding className="h-6 w-6" />,
+      title: "Personal Training",
+      description:
+        "Achieve your fitness goals faster with our certified personal trainers. Get customized workout plans and nutrition guidance tailored to your specific needs.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-green-500 to-emerald-500",
+      items: [
+        "One-on-One Sessions",
+        "Customized Workout Plans",
+        "Nutrition Coaching",
+        "Progress Tracking",
+        "Specialized Goal Programs",
+      ],
+    },
+    {
+      id: "amenities",
+      icon: <Coffee className="h-6 w-6" />,
+      title: "Premium Amenities",
+      description:
+        "Enjoy a comfortable workout experience with our premium amenities. Clean locker rooms, towel service, sauna, and a protein shake bar for post-workout recovery.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-purple-500 to-pink-500",
+      items: [
+        "Luxury Locker Rooms & Showers",
+        "Towel Service",
+        "Sauna & Steam Room",
+        "Protein Shake & Smoothie Bar",
+        "Relaxation Lounge",
+      ],
+    },
+    {
+      id: "hours",
+      icon: <Clock className="h-6 w-6" />,
+      title: "Flexible Hours",
+      description:
+        "Work out on your schedule with our extended hours. Our gym is open early mornings to late evenings, with 24/7 access available for premium members.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-yellow-500 to-amber-500",
+      items: [
+        "Open 5AM to 11PM Weekdays",
+        "Weekend Hours 7AM to 9PM",
+        "24/7 Access for Premium Members",
+        "Holiday Special Hours",
+        "Virtual Classes Anytime",
+      ],
+    },
+    {
+      id: "community",
+      icon: <Shield className="h-6 w-6" />,
+      title: "Supportive Community",
+      description:
+        "Join a motivating community of fitness enthusiasts. Regular events, challenges, and a supportive atmosphere help keep you accountable and inspired.",
+      image: "/placeholder.svg?height=600&width=800",
+      color: "from-teal-500 to-cyan-500",
+      items: [
+        "Member Challenges & Events",
+        "Fitness Community App",
+        "Accountability Programs",
+        "Member Socials",
+        "Fitness Workshops",
+      ],
+    },
+  ];
+
   return (
-    <section className="relative">
+    <section className="relative py-16 bg-gradient-to-b from-gray-900 to-gray-950">
       {/* Background elements */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 -z-10 -mt-20 -translate-x-1/2"
-        aria-hidden="true">
-        <Image
-          className="max-w-none opacity-70"
-          src={BlurredShapeGray || "/placeholder.svg"}
-          width={760}
-          height={668}
-          alt="Blurred shape"
-        />
-      </div>
-      <div
-        className="pointer-events-none absolute bottom-0 right-0 -z-10 -mb-40 translate-x-[10%] opacity-60"
-        aria-hidden="true">
-        <Image
-          className="max-w-none"
-          src={BlurredShape || "/placeholder.svg"}
-          width={760}
-          height={668}
-          alt="Blurred shape"
-        />
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-red-500/10 blur-3xl"></div>
+        <div className="absolute top-1/2 -left-40 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+        <div className="absolute -bottom-40 right-1/3 h-80 w-80 rounded-full bg-green-500/10 blur-3xl"></div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-400/.25),transparent)1] md:py-20">
-          {/* Section header */}
-          <div className="mx-auto max-w-3xl pb-4 text-center md:pb-12">
-            <div className="inline-flex items-center gap-3 pb-3 before:h-px before:w-8 before:bg-linear-to-r before:from-transparent before:to-teal-200/50 after:h-px after:w-8 after:bg-linear-to-l after:from-transparent after:to-teal-200/50">
-              <span className="inline-flex bg-linear-to-r from-teal-500 to-emerald-400 bg-clip-text text-transparent">
-                Why Choose Us
-              </span>
-            </div>
-            <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-teal-300),var(--color-gray-50),var(--color-emerald-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
-              Elevate your experience with our premium features
-            </h2>
-            <p className="text-lg text-gray-400">
-              Discover how our innovative solutions can transform your workflow,
-              boost productivity, and deliver exceptional results with minimal
-              effort.
-            </p>
-          </div>
+      <div className="container relative mx-auto px-4 sm:px-6">
+        {/* Section header */}
+        <div className="mx-auto max-w-3xl pb-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center rounded-full bg-white/5 px-4 py-1 text-sm font-medium text-white backdrop-blur-sm border border-white/10 mb-4">
+            <span className="text-red-400 mr-2">💪</span> ELEVATE YOUR FITNESS
+          </motion.div>
 
-          {/* Main feature image */}
-          <div
-            className="flex justify-center pb-4 md:pb-12"
-            data-aos="fade-up">
-            <Image
-              className="max-w-none rounded-lg shadow-xl"
-              src={FeaturesImage || "/placeholder.svg"}
-              width={1104}
-              height={384}
-              alt="Features"
-            />
-          </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-teal-300),var(--color-gray-50),var(--color-emerald-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-5xl font-semibold text-transparent md:text-4xl">
+            World-Class Gym Features
+          </motion.h2>
 
-          {/* Feature items grid */}
-          <div className="mx-auto grid max-w-sm gap-12 sm:max-w-none sm:grid-cols-2 md:gap-x-14 md:gap-y-16 lg:grid-cols-3">
-            {/* Feature 1 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-teal-500/10">
-                <svg
-                  className="h-6 w-6 fill-teal-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path d="M0 0h14v17H0V0Zm2 2v13h10V2H2Z" />
-                  <path
-                    fillOpacity=".48"
-                    d="m16.295 5.393 7.528 2.034-4.436 16.412L5.87 20.185l.522-1.93 11.585 3.132 3.392-12.55-5.597-1.514.522-1.93Z"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                Intuitive Dashboard
-              </h3>
-              <p className="text-gray-400">
-                Access all your important metrics and tools in one place with
-                our beautifully designed, user-friendly dashboard.
-              </p>
-            </article>
-
-            {/* Feature 2 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-500/10">
-                <svg
-                  className="h-6 w-6 fill-emerald-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path
-                    fillOpacity=".48"
-                    d="M7 8V0H5v8h2Zm12 16v-4h-2v4h2Z"
-                  />
-                  <path d="M19 6H0v2h17v8H7v-6H5v8h19v-2h-5V6Z" />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                Seamless Integration
-              </h3>
-              <p className="text-gray-400">
-                Connect with your favorite tools and platforms effortlessly,
-                creating a unified workflow that saves time and reduces
-                friction.
-              </p>
-            </article>
-
-            {/* Feature 3 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-teal-500/10">
-                <svg
-                  className="h-6 w-6 fill-teal-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path d="M23.414 6 18 .586 16.586 2l3 3H7a6 6 0 0 0-6 6h2a4 4 0 0 1 4-4h12.586l-3 3L18 11.414 23.414 6Z" />
-                  <path
-                    fillOpacity=".48"
-                    d="M13.01 12.508a2.5 2.5 0 0 0-3.502.482L1.797 23.16.203 21.952l7.71-10.17a4.5 4.5 0 1 1 7.172 5.437l-4.84 6.386-1.594-1.209 4.841-6.385a2.5 2.5 0 0 0-.482-3.503Z"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                Intelligent Automation
-              </h3>
-              <p className="text-gray-400">
-                Let our AI-powered system handle repetitive tasks, allowing you
-                to focus on what truly matters for your business growth.
-              </p>
-            </article>
-
-            {/* Feature 4 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-500/10">
-                <svg
-                  className="h-6 w-6 fill-emerald-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path
-                    fillOpacity=".48"
-                    d="m3.031 9.05-.593-.805 1.609-1.187.594.804a6.966 6.966 0 0 1 0 8.276l-.594.805-1.61-1.188.594-.805a4.966 4.966 0 0 0 0-5.9Z"
-                  />
-                  <path d="m7.456 6.676-.535-.845 1.69-1.07.534.844a11.944 11.944 0 0 1 0 12.789l-.535.845-1.69-1.071.536-.845a9.944 9.944 0 0 0 0-10.647Z" />
-                  <path
-                    d="m11.888 4.35-.514-.858 1.717-1.027.513.858a16.9 16.9 0 0 1 2.4 8.677 16.9 16.9 0 0 1-2.4 8.676l-.513.859-1.717-1.028.514-.858A14.9 14.9 0 0 0 14.003 12a14.9 14.9 0 0 0-2.115-7.65Z"
-                    opacity=".48"
-                  />
-                  <path d="m16.321 2-.5-.866 1.733-1 .5.866A22 22 0 0 1 21 12c0 3.852-1.017 7.636-2.948 10.97l-.502.865-1.73-1.003.501-.865A19.878 19.878 0 0 0 19 12a20 20 0 0 0-2.679-10Z" />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                Real-time Analytics
-              </h3>
-              <p className="text-gray-400">
-                Make data-driven decisions with our comprehensive analytics
-                suite that provides actionable insights in real-time.
-              </p>
-            </article>
-
-            {/* Feature 5 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-teal-500/10">
-                <svg
-                  className="h-6 w-6 fill-teal-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path
-                    fillOpacity=".48"
-                    d="M12 8.8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z"
-                  />
-                  <path d="m7.454 2.891.891-.454L7.437.655l-.891.454a12 12 0 0 0 0 21.382l.89.454.91-1.781-.892-.455a10 10 0 0 1 0-17.818ZM17.456 1.11l-.891-.454-.909 1.782.891.454a10 10 0 0 1 0 17.819l-.89.454.908 1.781.89-.454a12 12 0 0 0 0-21.382Z" />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                Advanced Security
-              </h3>
-              <p className="text-gray-400">
-                Rest easy knowing your data is protected with enterprise-grade
-                security measures and compliance with industry standards.
-              </p>
-            </article>
-
-            {/* Feature 6 */}
-            <article className="group transition-all duration-300 hover:-translate-y-1">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-500/10">
-                <svg
-                  className="h-6 w-6 fill-emerald-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24">
-                  <path
-                    fillOpacity=".48"
-                    d="M19 8h5v2h-5V8Zm-4 5h9v2h-9v-2Zm9 5H11v2h13v-2Z"
-                  />
-                  <path d="M19.406 3.844 6.083 20.497.586 15 2 13.586l3.917 3.917L17.844 2.595l1.562 1.25Z" />
-                </svg>
-              </div>
-              <h3 className="mb-2 font-nacelle text-xl font-semibold text-gray-200">
-                24/7 Support
-              </h3>
-              <p className="text-gray-400">
-                Get help whenever you need it with our dedicated support team,
-                comprehensive documentation, and active community.
-              </p>
-            </article>
-          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl text-gray-300">
+            Experience premium fitness with top-tier equipment, expert coaching,
+            and luxury amenities designed to help you achieve your fitness
+            goals.
+          </motion.p>
         </div>
+
+        {/* Interactive Feature Tabs */}
+        <Tabs
+          defaultValue="equipment"
+          className="w-full"
+          onValueChange={setActiveTab}>
+          <div className="flex justify-center mb-8">
+            <TabsList className="bg-gray-800/50 backdrop-blur-sm p-1 border border-gray-700/50">
+              {features.map((feature) => (
+                <TabsTrigger
+                  key={feature.id}
+                  value={feature.id}
+                  className={cn(
+                    "data-[state=active]:text-white",
+                    activeTab === feature.id
+                      ? `bg-gradient-to-r ${feature.color} text-white`
+                      : "text-gray-400"
+                  )}>
+                  <div className="flex items-center gap-2">
+                    {feature.icon}
+                    <span className="hidden sm:inline">
+                      {feature.title.split(" ")[0]}
+                    </span>
+                  </div>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          {features.map((feature) => (
+            <TabsContent
+              key={feature.id}
+              value={feature.id}
+              className="focus-visible:outline-none focus-visible:ring-0">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                {/* Feature Image */}
+                <div className="relative rounded-2xl overflow-hidden">
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-20 mix-blend-overlay`}></div>
+                  <Image
+                    src={feature.image || "/placeholder.svg"}
+                    width={800}
+                    height={600}
+                    alt={feature.title}
+                    className="w-full h-[400px] object-cover"
+                  />
+                  <div
+                    className={`absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-gray-900 to-transparent`}></div>
+                </div>
+
+                {/* Feature Content */}
+                <div className="space-y-6">
+                  <div
+                    className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color}`}>
+                    {feature.icon}
+                  </div>
+
+                  <h3 className="text-3xl font-bold text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-xl text-gray-300">{feature.description}</p>
+
+                  <ul className="space-y-3">
+                    {feature.items.map((item, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        className="flex items-center gap-3">
+                        <div
+                          className={`flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center text-white text-sm font-bold`}>
+                          {index + 1}
+                        </div>
+                        <span className="text-gray-200">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            </TabsContent>
+          ))}
+        </Tabs>
+
+        {/* Feature Grid for Mobile */}
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:hidden">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative overflow-hidden rounded-2xl bg-gray-800/50 p-6 backdrop-blur-sm border border-gray-700/50 hover:bg-gray-800/80 transition-all duration-300">
+              <div
+                className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${feature.color}`}></div>
+
+              <div
+                className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.color} text-white`}>
+                {feature.icon}
+              </div>
+
+              <h3 className="mb-3 text-xl font-bold text-white">
+                {feature.title}
+              </h3>
+
+              <p className="text-gray-300">{feature.description}</p>
+
+              <button
+                className={`mt-4 inline-flex items-center text-sm font-medium bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}
+                onClick={() => setActiveTab(feature.id)}>
+                Learn more <span className="ml-1">→</span>
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mt-20 text-center">
+          <div className="inline-flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#membership"
+              className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-red-500 to-orange-500 px-6 py-3 text-base font-medium text-white shadow-lg hover:from-red-600 hover:to-orange-600 transition-all duration-300">
+              Start Your Membership
+            </a>
+            <a
+              href="#tour"
+              className="inline-flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm px-6 py-3 text-base font-medium text-white border border-white/20 hover:bg-white/20 transition-all duration-300">
+              Book a Free Tour
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
