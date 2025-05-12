@@ -51,18 +51,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   </Badge>
                 )}
               </div>
-              <div className="flex gap-4">
-                <Button className="flex-1">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Add to Cart
-                </Button>
-                <Button
-                  variant="outline"
-                  className="flex-1">
-                  <Heart className="mr-2 h-4 w-4" />
-                  Wishlist
-                </Button>
-              </div>
+              
             </div>
           </div>
 

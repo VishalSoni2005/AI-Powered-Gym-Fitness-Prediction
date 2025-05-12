@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BlurShapedSvg from "@/public/images/blurred-shape.svg";
 import {
   Card,
   CardContent,
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Check, Star } from "lucide-react";
+import Image from 'next/image';
 
 type BillingPeriod = "monthly" | "quarterly" | "yearly";
 
@@ -141,7 +143,7 @@ export function MembershipTiers() {
   };
 
   return (
-    <div>
+    <div className="relative">
       {/* Billing Period Selector */}
       <div className="flex justify-center mb-10">
         <Tabs
@@ -243,6 +245,11 @@ export function MembershipTiers() {
             </CardFooter>
           </Card>
         ))}
+        <Image
+          src={BlurShapedSvg}
+          alt="blur shaped svg"
+          className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/4 translate-y-80 opacity-50"
+        />
       </div>
     </div>
   );

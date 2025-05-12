@@ -1,4 +1,5 @@
 import { MembershipTiers } from "@/components/membership-tiers";
+import PageIllustration from "@/components/page-illustration";
 import { Sparkles, Award, CheckCircle2 } from "lucide-react";
 
 export default function MembershipPage() {
@@ -73,7 +74,9 @@ export default function MembershipPage() {
           <MembershipTiers />
 
           {/* FAQ Section */}
-          <div className="mt-20">
+          
+          <div className="mt-20 relative">
+            <PageIllustration />
             <h2 className="text-2xl font-bold mb-8 text-center text-white">
               Frequently Asked Questions
             </h2>
