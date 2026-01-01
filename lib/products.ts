@@ -14,7 +14,7 @@ export interface Product {
   specifications: { name: string; value: string }[];
 }
 
-import creatine from '/creatine.webp';
+import creatine from "/creatine.webp";
 
 const products: Product[] = [
   // Creatine Products

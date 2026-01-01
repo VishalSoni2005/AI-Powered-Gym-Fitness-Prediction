@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { getPrediction } from "@/app/ai/actions";
+import { getPrediction } from "@/app/(home)/ai/actions";
 import ResultsDisplay from "./result-display";
 
 const formSchema = z.object({

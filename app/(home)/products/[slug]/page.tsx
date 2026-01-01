@@ -14,16 +14,18 @@ import {
   Award,
   ThumbsUp,
 } from "lucide-react";
-import { ProductListing } from "@/components/product-listing";
 
+import { ProductListing } from "@/components/product-listing";
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params;
+
+  const product = getProductBySlug(slug);
 
   if (!product) {
     notFound();
@@ -51,7 +53,6 @@ export default function ProductPage({ params }: ProductPageProps) {
                   </Badge>
                 )}
               </div>
-              
             </div>
           </div>
 
@@ -74,7 +75,8 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="flex items-center">
                 <Badge
                   variant="outline"
-                  className="mr-2 bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">
+                  className="mr-2 bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
+                >
                   {product.rating} ★
                 </Badge>
                 <span className="text-sm text-muted-foreground">
@@ -146,9 +148,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <h3 className="font-medium">Highlights</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {product.highlights.map((highlight, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center">
+                    <li key={index} className="flex items-center">
                       <ThumbsUp className="h-4 w-4 mr-2 text-primary" />
                       <span className="text-sm">{highlight}</span>
                     </li>
@@ -157,9 +157,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {/* Specifications */}
-              <Tabs
-                defaultValue="description"
-                className="w-full">
+              <Tabs defaultValue="description" className="w-full">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="description">Description</TabsTrigger>
                   <TabsTrigger value="specifications">
@@ -167,9 +165,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                   </TabsTrigger>
                   <TabsTrigger value="reviews">Reviews</TabsTrigger>
                 </TabsList>
-                <TabsContent
-                  value="description"
-                  className="pt-4">
+                <TabsContent value="description" className="pt-4">
                   <div className="space-y-4">
                     <p>{product.description}</p>
                     <div className="flex items-center space-x-4 pt-4">
@@ -184,15 +180,11 @@ export default function ProductPage({ params }: ProductPageProps) {
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent
-                  value="specifications"
-                  className="pt-4">
+                <TabsContent value="specifications" className="pt-4">
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {product.specifications.map((spec, index) => (
-                        <div
-                          key={index}
-                          className="flex flex-col">
+                        <div key={index} className="flex flex-col">
                           <span className="text-sm text-muted-foreground">
                             {spec.name}
                           </span>
@@ -202,9 +194,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent
-                  value="reviews"
-                  className="pt-4">
+                <TabsContent value="reviews" className="pt-4">
                   <div className="space-y-4">
                     <div className="flex items-center mb-4">
                       <div className="flex items-center mr-4">

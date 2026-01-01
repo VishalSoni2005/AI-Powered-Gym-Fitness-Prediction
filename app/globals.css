@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 
 /* Additional styles */
-@import './additional-styles/utility-patterns.css' layer(components);
-@import './additional-styles/theme.css';
-@import "tw-animate-css";
+@import '../styles/css/additional-styles/utility-patterns.css' layer(components);
+@import '../styles/css/additional-styles/theme.css';
 
 @custom-variant dark (&:is(.dark *));
 
