@@ -38,7 +38,7 @@ export default function Header() {
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center space-x-3">
             <NavLinks />
-            <LoginButton />
+            {/* <LoginButton /> */}
           </nav>
         </div>
 
@@ -51,7 +51,7 @@ export default function Header() {
           <div className="px-4 py-3 space-y-3">
             <NavLinks mobile />
             <div className="pt-2">
-              <LoginButton fullWidth />
+              {/* <LoginButton fullWidth /> */}
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ function NavLinks({ mobile = false }: { mobile?: boolean }) {
     { href: "/ai", label: "✨ AI Prediction" },
     { href: "/education", label: "Education" },
     { href: "/products", label: "Products" },
-    { href: "/subscription", label: "🚀 Subscription" },
+    { href: "/subscription", label: "Subscription" },
   ];
 
   return (

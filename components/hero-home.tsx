@@ -12,25 +12,26 @@ export default function HeroHome() {
           <div className="pb-12 text-center md:pb-20">
             <h1
               className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,var(--color-gray-200),var(--color-indigo-200),var(--color-gray-50),var(--color-indigo-300),var(--color-gray-200))] bg-[length:200%_auto] bg-clip-text pb-5 font-nacelle text-4xl font-semibold text-transparent md:text-5xl"
-              data-aos="fade-up">
+              data-aos="fade-up"
+            >
               Stronger Every Day – Join Our Fitness Revolution!
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
                 className="mb-8 text-xl text-indigo-200/65"
                 data-aos="fade-up"
-                data-aos-delay={200}>
+                data-aos-delay={200}
+              >
                 Join a community that pushes you to be your best. Whether you're
                 a beginner or a pro, our expert trainers and state-of-the-art
                 facilities will help you achieve your fitness goals.
               </p>
               <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
-                <div
-                  data-aos="fade-up"
-                  data-aos-delay={400}>
+                <div data-aos="fade-up" data-aos-delay={400}>
                   <Link
                     href="/ai"
-                    className=" btn group mb-4 w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto">
+                    className=" btn group mb-4 w-full bg-linear-to-t from-indigo-600 to-indigo-500 bg-[length:100%_100%] bg-[bottom] text-white shadow-[inset_0px_1px_0px_0px_--theme(--color-white/.16)] hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
+                  >
                     <span className="relative inline-flex items-center">
                       Get Prediction
                       <span className="ml-1 tracking-normal text-white/50 transition-transform group-hover:translate-x-0.5">
@@ -49,14 +50,28 @@ export default function HeroHome() {
                     </span>
                   </a> */}
                 </div>
-                <div
-                  data-aos="fade-up"
-                  data-aos-delay={600}>
-                  <a
-                    className="btn relative w-full bg-linear-to-b from-gray-800 to-gray-800/60 bg-[length:100%_100%] bg-[bottom] text-gray-300 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(to_right,var(--color-gray-800),var(--color-gray-700),var(--color-gray-800))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] hover:bg-[length:100%_150%] sm:ml-4 sm:w-auto"
-                    href="/education">
+                <div data-aos="fade-up" data-aos-delay={600}>
+                  <Link
+                    href="/education"
+                    className="
+    relative inline-flex items-center justify-center
+    px-6 py-2.5
+    rounded-md
+    bg-linear-to-b from-slate-800 to-slate-900
+    text-slate-200
+    border border-slate-700
+    transition-all
+    hover:from-slate-700 hover:to-slate-800
+    hover:border-cyan-500/50
+    hover:text-white
+    focus:outline-none
+    focus:ring-2
+    focus:ring-cyan-500/40
+    sm:ml-4
+  "
+                  >
                     Educate Yourself
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

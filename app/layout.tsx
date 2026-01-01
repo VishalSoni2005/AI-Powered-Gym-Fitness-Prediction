@@ -1,9 +1,7 @@
-import "./globals.css";
-
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-
 import Header from "@/components/ui/header";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,7 +38,7 @@ const nacelle = localFont({
 
 export const metadata = {
   title: "Fit Starts",
-  description: "Page description",
+  description: "AI Fitness Prediction Tool",
 };
 
 export default function RootLayout({
@@ -51,7 +49,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}>
+        className={`${inter.variable} ${nacelle.variable} bg-gray-950 font-inter text-base text-gray-200 antialiased`}
+      >
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip ">
           <Header />
           {children}
